@@ -51,11 +51,6 @@ valid_codes = {
     "XYZ789": False,
     # etc...
 }
-
-@bot.event
-async def on_ready():
-    print(f"Connecté en tant que {bot.user}")
-
         
 @bot.command()
 async def code(ctx, entered_code):
