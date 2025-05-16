@@ -65,10 +65,25 @@ async def code(ctx, entered_code):
         role = discord.utils.get(ctx.guild.roles, name=role_name)
         await member.add_roles(role)
         valid_codes[entered_code] = True  # Marquer comme utilisé
-        await ctx.send(f"✅ Code accepté, bienvenue {member.mention} !")
+        await ctx.send("✅ Code accepté, bienvenue {member.mention} !")
     else:
         await ctx.send("❌ Code invalide ou déjà utilisé.")
+        
+@bot.command()
+async def code(ctx, entered_code):
+    if isinstance(ctx.channel, discord.DMChannel):  # Vérifie que c’est en message privé
+        guild = discord.utils.get(bot.guilds, name="NOM_DU_SERVEUR")
+        member = guild.get_member(ctx.author.id)
+        role = discord.utils.get(guild.roles, name="Adhérent")
 
+        if entered_code in valid_codes and not valid_codes[entered_code]:
+            await member.add_roles(role)
+            valid_codes[entered_code] = True
+            await ctx.send("✅ Code accepté, rôle attribué !")
+        else:
+            await ctx.send("❌ Code invalide ou déjà utilisé.")
+    else:
+        await ctx.send("Merci d’envoyer votre code en message privé.")
 
 # Démarrer le bot (Remplace 'TON_TOKEN' par ton vrai token)
 import os
