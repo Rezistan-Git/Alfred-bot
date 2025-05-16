@@ -56,18 +56,6 @@ valid_codes = {
 async def on_ready():
     print(f"Connecté en tant que {bot.user}")
 
-@bot.command()
-async def code(ctx, entered_code):
-    role_name = "Adhérent"
-    member = ctx.author
-
-    if entered_code in valid_codes and not valid_codes[entered_code]:
-        role = discord.utils.get(ctx.guild.roles, name=role_name)
-        await member.add_roles(role)
-        valid_codes[entered_code] = True  # Marquer comme utilisé
-        await ctx.send("✅ Code accepté, bienvenue {member.mention} !")
-    else:
-        await ctx.send("❌ Code invalide ou déjà utilisé.")
         
 @bot.command()
 async def code(ctx, entered_code):
